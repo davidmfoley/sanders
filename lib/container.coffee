@@ -10,7 +10,8 @@ module.exports = class Container
   get : (name, chain = [])->
     info = @typeMap[name.toLowerCase()]
     unless info
-      throw "No registration for '#{name}'"
+      message = @printChain(chain.concat([name]))
+      throw "No registration for '#{name}'\n#{message}"
 
     unless info.instance
       @checkForCircularDependency(name, chain)
@@ -23,11 +24,12 @@ module.exports = class Container
 
     if chainLower.indexOf(name.toLowerCase()) != -1
       chain.push(name)
-      message = @printChain(name, chain)
+      message = @printChain([name].concat(chain))
       throw "Circular dependency detected:\n#{message}"
 
-  printChain: (name, chain) ->
-    message = name
-    for step in chain
+  printChain: (chain) ->
+    ch = chain.slice()
+    message = ch.shift()
+    for step in ch
       message = message + " -> #{step}"
     message

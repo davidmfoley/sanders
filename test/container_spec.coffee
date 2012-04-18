@@ -14,14 +14,26 @@ describe 'Container', ->
     container.register('Arthur', Arthur, 'DeepThought')
     container.get('Arthur').deepThought.answer.should.equal(42)
 
-  it 'throws a descriptive error when asked for an unknown type by name', ->
-    container.register('DeepThought', DeepThought)
-    try
-      container.get('Zaphod')
-    catch error
-      caught = error
 
-    caught.should.match(/No registration for \'Zaphod\'/)
+  describe 'detecting unknown types', ->
+    it 'throws a descriptive error when asked for an unknown type by name', ->
+      container.register('DeepThought', DeepThought)
+      try
+        container.get('Zaphod')
+      catch error
+        caught = error
+
+      caught.should.match(/No registration for \'Zaphod\'/)
+
+    it 'detects secondary dependencies and prints an informative message', ->
+      container.register('Arthur', Arthur, 'DeepThought')
+      try
+        container.get('Arthur')
+      catch error
+        caught = error
+
+      caught.should.match(/No registration for \'DeepThought\'/)
+      caught.should.match(/Arthur \-\> DeepThought/i)
 
   it 'only creates a single instance of each class', ->
     container.register('DeepThought', DeepThought)
