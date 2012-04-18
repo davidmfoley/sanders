@@ -1,0 +1,17 @@
+{
+  "name"             : "sanders",
+  "version"          : "0.0.1",
+
+  "dependencies"     :{},
+
+  "devDependencies"  :
+  {
+    "mocha"          : ">=0.13.0",
+    "should"         : ">=0.5.1"
+  },
+  "engines"          :
+  {
+    "node"           : ">=0.6.10",
+    "npm"            : ">=1.1.0"
+  }
+}
