@@ -3,6 +3,14 @@ module.exports = class Container
     @typeMap = {}
 
   register : (name, constructor, dependencies...) =>
+    if typeof name is 'function'
+      if constructor
+        dependencies = [constructor].concat(dependencies ? [])
+      else
+        dependencies = []
+      constructor = name
+      name = constructor.name
+
     @typeMap[name.toLowerCase()] =
       ctor: constructor
       dependencies : dependencies ? []
