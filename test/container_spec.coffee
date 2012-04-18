@@ -23,6 +23,13 @@ describe 'Container', ->
 
     caught.should.match(/No registration for \'Zaphod\'/)
 
+  it 'only creates a single instance of each class', ->
+    container.register('DeepThought', DeepThought)
+    container.register('Arthur', Arthur, 'DeepThought')
+    deepThought = container.get('DeepThought')
+    container.get('Arthur').deepThought.should.equal(deepThought)
+
+
 class DeepThought
   answer: 42
 
