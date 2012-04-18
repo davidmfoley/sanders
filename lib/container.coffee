@@ -11,9 +11,20 @@ module.exports = class Container
       constructor = name
       name = constructor.name
 
+    if (dependencies.length == 0)
+      dependencies = @determineDependencies(constructor)
+
     @typeMap[name.toLowerCase()] =
       ctor: constructor
       dependencies : dependencies ? []
+
+  determineDependencies: (constructor) ->
+    firstLine = constructor.toString().split("\n")[0]
+    argFinder= /(?:\(|\, )(\w+)/g
+    args = []
+    while (arg = argFinder.exec(firstLine))
+      args.push(arg[1])
+    args
 
   get : (name, chain = [])->
     if typeof name is 'function'

@@ -69,6 +69,13 @@ describe 'Container', ->
       arthur = container.get(Arthur)
       arthur.deepThought.should.equal(deepThought)
 
+  it 'can infer constructor arguments from the argument names', ->
+    container.register(Arthur)
+    container.register(DeepThought)
+    deepThought = container.get(DeepThought)
+    arthur = container.get(Arthur)
+    arthur.deepThought.should.equal(deepThought)
+
 class Zaphod
   constructor: (@leftHead, @rightHead) ->
 
