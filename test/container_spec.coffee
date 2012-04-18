@@ -76,6 +76,12 @@ describe 'Container', ->
     arthur = container.get(Arthur)
     arthur.deepThought.should.equal(deepThought)
 
+  it 'can get an instance from an unregistered ctor if dependencies are known', ->
+    container.register(DeepThought)
+    deepThought = container.get(DeepThought)
+    arthur = container.get(Arthur)
+    arthur.deepThought.should.equal(deepThought)
+
 class Zaphod
   constructor: (@leftHead, @rightHead) ->
 

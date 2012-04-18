@@ -28,7 +28,10 @@ module.exports = class Container
 
   get : (name, chain = [])->
     if typeof name is 'function'
+      unless @typeMap[name.name.toLowerCase()]
+        @register(name)
       name = name.name
+
     info = @typeMap[name.toLowerCase()]
     unless info
       message = @printChain(chain.concat([name]))
