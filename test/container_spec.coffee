@@ -82,6 +82,11 @@ describe 'Container', ->
     arthur = container.get(Arthur)
     arthur.deepThought.should.equal(deepThought)
 
+  it 'can register an instance', ->
+    container.register('DeepThought', {answer : 77})
+    arthur = container.get(Arthur)
+    arthur.deepThought.answer.should.equal(77)
+
 class Zaphod
   constructor: (@leftHead, @rightHead) ->
 

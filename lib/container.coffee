@@ -11,6 +11,12 @@ module.exports = class Container
       constructor = name
       name = constructor.name
 
+    if typeof constructor is 'object'
+      @typeMap[name.toLowerCase()] =
+        instance : constructor
+
+      return
+
     if (dependencies.length == 0)
       dependencies = @determineDependencies(constructor)
 
