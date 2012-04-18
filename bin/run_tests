@@ -1,0 +1,2 @@
+DIR=$( cd "$( dirname "$0" )/.." && pwd )
+$DIR/node_modules/.bin/mocha --require should --reporter dot --compilers coffee:coffee-script $1 $DIR/test/*.coffee
