@@ -16,6 +16,8 @@ module.exports = class Container
       dependencies : dependencies ? []
 
   get : (name, chain = [])->
+    if typeof name is 'function'
+      name = name.name
     info = @typeMap[name.toLowerCase()]
     unless info
       message = @printChain(chain.concat([name]))

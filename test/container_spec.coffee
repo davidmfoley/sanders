@@ -54,12 +54,20 @@ describe 'Container', ->
     caught.should.match(/Circular dependency/)
     caught.should.match(/Zaphod \-\> LeftHead \-\> RightHead/i)
 
-  it 'can register constructor functions directly (without explicit naming)', ->
-    container.register(DeepThought)
-    container.register(Arthur, 'DeepThought')
-    deepThought = container.get('DeepThought')
-    arthur = container.get('Arthur')
-    arthur.deepThought.should.equal(deepThought)
+  describe 'registering without magic strings', ->
+    beforeEach ->
+      container.register(DeepThought)
+      container.register(Arthur, 'DeepThought')
+
+    it 'can register constructor functions directly (without explicit naming)', ->
+      deepThought = container.get('DeepThought')
+      arthur = container.get('Arthur')
+      arthur.deepThought.should.equal(deepThought)
+
+    it 'can get instances by function', ->
+      deepThought = container.get(DeepThought)
+      arthur = container.get(Arthur)
+      arthur.deepThought.should.equal(deepThought)
 
 class Zaphod
   constructor: (@leftHead, @rightHead) ->
