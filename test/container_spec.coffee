@@ -14,6 +14,15 @@ describe 'Container', ->
     container.register('Arthur', Arthur, 'DeepThought')
     container.get('Arthur').deepThought.answer.should.equal(42)
 
+  it 'throws a descriptive error when asked for an unknown type by name', ->
+    container.register('DeepThought', DeepThought)
+    try
+      container.get('Zaphod')
+    catch error
+      caught = error
+
+    caught.should.match(/No registration for \'Zaphod\'/)
+
 class DeepThought
   answer: 42
 

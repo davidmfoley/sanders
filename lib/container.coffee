@@ -9,6 +9,9 @@ module.exports = class Container
 
   get : (name)->
     info = @typeMap[name.toLowerCase()]
+    unless info
+      throw "No registration for '#{name}'"
+
     unless info.instance
       deps = (@get(dep) for dep in info.dependencies)
       info.instance = new info.ctor(deps...)
