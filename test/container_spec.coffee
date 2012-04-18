@@ -30,6 +30,26 @@ describe 'Container', ->
     container.get('Arthur').deepThought.should.equal(deepThought)
 
 
+  it 'detects circular dependencies and throws an informative error', ->
+    caught = null
+    container.register('LeftHead', Head, 'RightHead')
+    container.register('RightHead', Head, 'LeftHead')
+    container.register('Zaphod', Zaphod, 'LeftHead', 'RightHead')
+
+    try
+      container.get('Zaphod')
+    catch error
+      caught = error
+
+    caught.should.match(/Circular dependency/)
+    caught.should.match(/Zaphod \-\> LeftHead \-\> RightHead/i)
+
+class Zaphod
+  constructor: (@leftHead, @rightHead) ->
+
+class Head
+  constructor: (@otherHead) ->
+
 class DeepThought
   answer: 42
 
