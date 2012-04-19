@@ -55,10 +55,3 @@ module.exports = class Container
   throwWithDependencyChain: (error, chain) ->
     message = chain.printable()
     throw "#{error}:\n#{message}"
-
-  printChain: (chain) ->
-    message = chain[0]
-    for step in chain[1..]
-      message = message + " -> #{step}"
-    message
-
