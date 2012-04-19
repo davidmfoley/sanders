@@ -1,3 +1,5 @@
+DependencyChain = require './dependency_chain'
+
 module.exports = class Container
   constructor: ->
     @map = new TypeMap
@@ -10,7 +12,7 @@ module.exports = class Container
     else
       @addConstructorRegistration(args[0], args[1], args[2..])
 
-  get : (thingToGet, chain = [])->
+  get : (thingToGet, chain = new DependencyChain()) ->
     if typeof thingToGet is 'function'
       unless @map.hasRegistration(thingToGet.name)
         @register(thingToGet)
@@ -25,7 +27,8 @@ module.exports = class Container
 
   buildInstance: (name, info, chain) ->
     @checkForCircularDependency(name, chain)
-    deps = (@get(dep, chain.concat([name])) for dep in info.dependencies)
+    deps = (@get(dep, chain.concat(name)) for dep in info.dependencies)
+
     new info.ctor(deps...)
 
   addConstructorRegistration: (name, constructor, dependencies) ->
@@ -38,16 +41,17 @@ module.exports = class Container
 
   checkForMissingRegistration: (name, info, chain) ->
     unless info
-      @throwWithDependencyChain "No registration for '#{name}'", chain.concat([name])
+      @throwWithDependencyChain "No registration for '#{name}'", chain.concat(name)
 
   checkForCircularDependency: (name, chain) ->
-    chainLower = (c.toLowerCase() for c in chain)
+    chain = chain.concat name
 
-    if chainLower.indexOf(name.toLowerCase()) != -1
-      @throwWithDependencyChain "Circular dependency detected", chain.concat([name])
+    return unless chain.circular()
+
+    @throwWithDependencyChain "Circular dependency detected", chain
 
   throwWithDependencyChain: (error, chain) ->
-    message = @printChain(chain)
+    message = chain.printable()
     throw "#{error}:\n#{message}"
 
   printChain: (chain) ->
