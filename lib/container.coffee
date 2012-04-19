@@ -2,22 +2,23 @@ module.exports = class Container
   constructor: ->
     @typeMap = {}
 
-  register : (name, constructor, dependencies...) =>
-    if typeof name is 'function'
-      if constructor
-        dependencies = [constructor].concat(dependencies ? [])
-      else
-        dependencies = []
-      constructor = name
-      name = constructor.name
-
-    if typeof constructor is 'object'
-      @typeMap[name.toLowerCase()] =
-        instance : constructor
-
+  register : (args...) =>
+    if typeof args[1] is 'object'
+      @typeMap[args[0].toLowerCase()] =
+        instance : args[1]
       return
 
-    if (dependencies.length == 0)
+    dependencies = []
+    if typeof args[0] is 'function'
+      constructor = args[0]
+      name = constructor.name
+      dependencies = args[1..]
+    else
+      name = args[0]
+      constructor = args[1]
+      dependencies = args[2..]
+
+    unless dependencies.length > 0
       dependencies = @determineDependencies(constructor)
 
     @typeMap[name.toLowerCase()] =
