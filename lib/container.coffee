@@ -30,9 +30,6 @@ module.exports = class Container
   addRegistration: (name, props) ->
     @typeMap[name.toLowerCase()] = props
 
-  getRegistration: (name) ->
-    @typeMap[name.toLowerCase()]
-
   get : (name, chain = [])->
     if typeof name is 'function'
       unless @typeMap[name.name.toLowerCase()]
@@ -48,22 +45,25 @@ module.exports = class Container
       info.instance = new info.ctor(deps...)
     info.instance
 
+  getRegistration: (name) ->
+    @typeMap[name.toLowerCase()]
+
   checkForMissingRegistration: (name, info, chain) ->
     unless info
-      message = @printChain(chain.concat([name]))
-      throw "No registration for '#{name}'\n#{message}"
+      @throwWithDependencyChain "No registration for '#{name}'", chain.concat([name])
 
   checkForCircularDependency: (name, chain) ->
     chainLower = (c.toLowerCase() for c in chain)
 
     if chainLower.indexOf(name.toLowerCase()) != -1
-      chain.push(name)
-      message = @printChain([name].concat(chain))
-      throw "Circular dependency detected:\n#{message}"
+      @throwWithDependencyChain "Circular dependency detected", chain.concat([name])
+
+  throwWithDependencyChain: (error, chain) ->
+    message = @printChain(chain)
+    throw "#{error}:\n#{message}"
 
   printChain: (chain) ->
-    ch = chain.slice()
-    message = ch.shift()
-    for step in ch
+    message = chain[0]
+    for step in chain[1..]
       message = message + " -> #{step}"
     message
