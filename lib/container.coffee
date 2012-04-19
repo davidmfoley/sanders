@@ -1,4 +1,6 @@
 DependencyChain = require './dependency_chain'
+TypeMap = require './type_map'
+FunctionInfo = require './function_info'
 
 module.exports = class Container
   constructor: ->
@@ -59,28 +61,4 @@ module.exports = class Container
     for step in chain[1..]
       message = message + " -> #{step}"
     message
-
-class FunctionInfo
-  constructor: (@fn) ->
-
-  argumentNames : =>
-    firstLine = @fn.toString().split("\n")[0]
-    argFinder= /(?:\(|\, )(\w+)/g
-    args = []
-    while (arg = argFinder.exec(firstLine))
-      args.push(arg[1])
-    args
-
-class TypeMap
-  constructor: ->
-    @typeMap = {}
-
-  hasRegistration: (name) ->
-    !!@typeMap[name.toLowerCase()]
-
-  getRegistration: (name) ->
-    @typeMap[name.toLowerCase()]
-
-  addRegistration: (name, props) ->
-    @typeMap[name.toLowerCase()] = props
 
