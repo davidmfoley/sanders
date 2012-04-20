@@ -71,7 +71,7 @@ container.register('replicatedDatabase', replicatedDatabaseConnection)
 container.register(UserReport, 'replicatedDatabase')
 
 # can also register objects directly
-container.register('databaseConfig',{server: 'FOO", user: 'BAR', password : 'BAZ'})
+container.register('databaseConfig',{server: 'FOO', user: 'BAR', password : 'BAZ'})
 container.register('emailConfig', {server: 'localhost", fromEmail: 'bar@example.com'})
 
 
