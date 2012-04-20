@@ -17,22 +17,23 @@ class UserSocket
   constructor: (@websocketConnection, @userRegistry) ->
 
 class UserRegistry
-  constructor: (@database, @emailer): ->
+  constructor: (@database, @emailer) ->
 
 class UserReport
-  constructor: (@database): ->
+  constructor: (@database) ->
 
 class Database
-  constructor: (@logger, @databaseConfig): ->
+  constructor: (@logger, @databaseConfig) ->
 
 class Emailer
-  constructor: (@logger, @emailConfig): ->
+  constructor: (@logger, @emailConfig) ->
 
 class ConsoleLogger
 
 ```
 
-This makes it easy to test each component in isolation
+This makes it easy to test each component in isolation, by passing in test doubles (fakes/mocks/spies) where necessary.
+
 
 Using a container  makes it easy to:
 - construct this graph of objects at runtime
