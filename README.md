@@ -74,7 +74,7 @@ container.register(UserReport, 'replicatedDatabase')
 
 # can also register objects directly
 container.register('databaseConfig',{server: 'FOO', user: 'BAR', password : 'BAZ'})
-container.register('emailConfig', {server: 'localhost", fromEmail: 'bar@example.com'})
+container.register('emailConfig', {server: 'localhost', fromEmail: 'bar@example.com'})
 
 # now you can get the things you need, with the dependencies you have configured
 userSocket = container.get(UserSocket)
