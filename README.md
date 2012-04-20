@@ -84,9 +84,3 @@ container.register('emailConfig', {server: 'localhost", fromEmail: 'bar@example.
 
 Sanders builds only a single instance of each object. (There is no "lifetime" concept).
 Each instance is cached for the lifetime of the container.
-
-## Code, pleashe
-```coffee
-class CashRegister
-  constructor: (
-```
