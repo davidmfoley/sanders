@@ -42,8 +42,8 @@ module.exports = class Container
       dependencies : dependencies ? []
 
   checkForMissingRegistration: (name, info, chain) ->
-    unless info
-      @throwWithDependencyChain "No registration for '#{name}'", chain.concat(name)
+    return if info
+    @throwWithDependencyChain "No registration for '#{name}'", chain.concat(name)
 
   checkForCircularDependency: (name, chain) ->
     chain = chain.concat name

@@ -24,7 +24,7 @@ describe 'Container', ->
 
       caught.should.match(/No registration for \'Zaphod\'/)
 
-    it 'detects secondary dependencies and prints an informative message', ->
+    it 'detects missing secondary dependencies and prints an informative message', ->
       container.register('Arthur', Arthur, 'DeepThought')
       try
         container.get('Arthur')
