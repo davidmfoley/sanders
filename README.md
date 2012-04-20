@@ -44,8 +44,9 @@ The database configuration also would likely change depending on the environment
 
 This is how you might configure the above system in Sanders:
 ```coffee
+Sanders = require 'sanders'
 
-container = new Container()
+container = new Sanders.Container()
 
 # you can register constructors
 # by convention, the names of the argumentis to the constructor
@@ -78,8 +79,6 @@ container.register('emailConfig', {server: 'localhost", fromEmail: 'bar@example.
 userSocket = container.get(UserSocket)
 userReport = container.get(UserReport)
 ```
-
-
 
 
 ## OK, I come from (Java/.NET) so I know what an IOC container is, how does Sanders compare to $OTHERCONTAINER?

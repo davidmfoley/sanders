@@ -1,6 +1,7 @@
 {
   "name"             : "sanders",
   "version"          : "0.0.1",
+  "main"             : "./lib/sanders.coffee",
 
   "dependencies"     :{
     "coffee-script": ">=1.2.0"
