@@ -2,7 +2,7 @@
   "name"             : "sanders",
   "version"          : "0.0.1",
   "main"             : "./lib/sanders.coffee",
-
+  "description"      : "A simple IOC container for Node",
   "dependencies"     :{
     "coffee-script": ">=1.2.0"
   },
