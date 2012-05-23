@@ -29,9 +29,17 @@ Each instance is cached for the lifetime of the container.
 
 ## How do I install it?
 
-### using npm:
+### In node, using npm:
 
 ```npm install sanders```
+
+or add to your package.json:
+
+```
+dependencies : {
+  "sanders" : "*"
+}
+```
 
 ### in the browser:
 
