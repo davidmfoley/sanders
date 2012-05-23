@@ -31,7 +31,9 @@ Each instance is cached for the lifetime of the container.
 
 ### In node, using npm:
 
-```npm install sanders```
+```
+npm install sanders
+```
 
 or add to your package.json:
 
@@ -46,7 +48,9 @@ dependencies : {
 You will need to clone this repo and install coffeescript to build the browser-compatible version of sanders.
 
 Run the following command (linux/os x):
-```bin/build_for_browser```
+```
+bin/build_for_browser
+```
 
 This will compile sanders and give you a single js file that creates a "Sanders" object that is attached to "window" (the global window object in browser-based javascript)/
 
