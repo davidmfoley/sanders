@@ -52,7 +52,13 @@ Run the following command (linux/os x):
 bin/build_for_browser
 ```
 
-This will compile sanders and give you a single js file that creates a "Sanders" object that is attached to "window" (the global window object in browser-based javascript)/
+This will compile sanders and give you a single js file that creates a "Sanders" object that is attached to "window" (the global window object in browser-based javascript).
+
+You can then create a container as follows:
+
+```javascript
+  var container = new Sanders.Container();
+```
 
 ## CODE, PLEASE!
 Here's an example:
