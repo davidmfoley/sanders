@@ -1,0 +1,10 @@
+#! /bin/sh
+BUILDDIR=`cd $(dirname "$0")/../build; pwd`
+echo "building in $BUILDDIR"
+BROWSERCOFFEE=$BUILDDIR/sanders_browser.coffee
+mkdir -p $BUILDDIR
+(cat lib/*.coffee | sed "s/module\.exports = //" | sed "s/.*\= *require.*//") >  "$BROWSERCOFFEE"
+
+echo "window.Sanders = {Container: Container}" >> $BROWSERCOFFEE
+coffee -c $BROWSERCOFFEE
+echo "compiled: $BUILDDIR/sanders_browser.js"
