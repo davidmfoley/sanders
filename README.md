@@ -1,6 +1,7 @@
 # Sanders
 
-A simple [Inversion of Control](http://en.wikipedia.org/wiki/Inversion_of_control) container for node.js.
+A simple [Inversion of Control](http://en.wikipedia.org/wiki/Inversion_of_control) container for node.js and the browser.
+
 
 ## What does it do?
 
@@ -21,11 +22,25 @@ For example, we probably only want to send actual email in production, so we wou
 
 The database configuration also would likely change depending on the environment.
 
-
 ## OK, I come from (Java/.NET) so I know what an IOC container is, how does Sanders compare to $OTHERCONTAINER?
 
 Sanders builds only a single instance of each object. (There is no "lifetime" concept).
 Each instance is cached for the lifetime of the container.
+
+## How do I install it?
+
+### using npm:
+
+```npm install sanders```
+
+### in the browser:
+
+You will need to clone this repo and install coffeescript to build the browser-compatible version of sanders.
+
+Run the following command (linux/os x):
+```bin/build_for_browser```
+
+This will compile sanders and give you a single js file that creates a "Sanders" object that is attached to "window" (the global window object in browser-based javascript)/
 
 ## CODE, PLEASE!
 Here's an example:
